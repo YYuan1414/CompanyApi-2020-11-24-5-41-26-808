@@ -57,29 +57,29 @@ namespace CompanyApiTest
             Assert.Equal(new List<Company>() { existingCompany, existingCompany1 }, actrualcCompany);
         }
 
-        //[Fact]
-        //public async Task Should_Return_The_Companies_When_Get_Company_Test()
-        //{
-        //    //given
-        //    TestServer server = new TestServer(new WebHostBuilder().UseStartup<Startup>());
-        //    HttpClient client = server.CreateClient();
-        //    Company existingCompany = new Company("SSS");
-        //    Company existingCompany1 = new Company("WWW");
-        //    string request = JsonConvert.SerializeObject(existingCompany);
-        //    string request1 = JsonConvert.SerializeObject(existingCompany1);
-        //    StringContent requestBody = new StringContent(request, Encoding.UTF8, "application/json");
-        //    StringContent requestBody1 = new StringContent(request1, Encoding.UTF8, "application/json");
+        [Fact]
+        public async Task Should_Return_The_Company_When_Get_Company_Test()
+        {
+            //given
+            TestServer server = new TestServer(new WebHostBuilder().UseStartup<Startup>());
+            HttpClient client = server.CreateClient();
+            Company existingCompany = new Company("SSS");
+            Company existingCompany1 = new Company("WWW");
+            string request = JsonConvert.SerializeObject(existingCompany);
+            string request1 = JsonConvert.SerializeObject(existingCompany1);
+            StringContent requestBody = new StringContent(request, Encoding.UTF8, "application/json");
+            StringContent requestBody1 = new StringContent(request1, Encoding.UTF8, "application/json");
 
-        //    //when
-        //    await client.PostAsync("CompanyApi/companies", requestBody);
-        //    await client.PostAsync("CompanyApi/companies", requestBody1);
-        //    var response = await client.GetAsync("CompanyApi/companies");
+            //when
+            await client.PostAsync("CompanyApi/companies", requestBody);
+            await client.PostAsync("CompanyApi/companies", requestBody1);
+            var response = await client.GetAsync("CompanyApi/companies?index=2");
 
-        //    //then
-        //    response.EnsureSuccessStatusCode();
-        //    var responseString = await response.Content.ReadAsStringAsync();
-        //    List<Company> actrualcCompany = JsonConvert.DeserializeObject<List<Company>>(responseString);
-        //    Assert.Equal(new List<Company>() { existingCompany, existingCompany1 }, actrualcCompany);
-        //}
+            //then
+            response.EnsureSuccessStatusCode();
+            var responseString = await response.Content.ReadAsStringAsync();
+            Company actrualcCompany = JsonConvert.DeserializeObject<Company>(responseString);
+            Assert.Equal(existingCompany1, actrualcCompany);
+        }
     }
 }

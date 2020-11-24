@@ -26,9 +26,15 @@ namespace CompanyApi.Controllers
         }
 
         [HttpGet("companies")]
-        public IEnumerable<Company> GetAllCompanies()
+        public Company GetAllCompanies(int index)
         {
-            return companies;
+            if (index > companies.Count)
+            {
+                BadRequest();
+                return null;
+            }
+
+            return companies[index - 1];
         }
     }
 }
