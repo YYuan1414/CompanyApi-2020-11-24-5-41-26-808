@@ -24,5 +24,11 @@ namespace CompanyApi.Controllers
             companies.Add(company);
             return company;
         }
+
+        [HttpGet("companies")]
+        public IEnumerable<Company> GetAllCompanies()
+        {
+            return companies;
+        }
     }
 }
