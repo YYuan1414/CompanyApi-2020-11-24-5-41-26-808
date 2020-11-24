@@ -1,0 +1,10 @@
+AC1: POST /companies {name: ""} => 201, 409(companyId confict) {companyId: "", name: ""} LOCATION: /companies/{companyId}
+AC2: GET /companies => 200 [{companyId: "", name: ""},…]
+AC3: GET /companies?companyId="" => 200 {companyId: "", name: ""}
+AC4: GET /companies?pageIndex=""&pageSize="" => 200 [{companyId: "", name: ""},…]
+AC5: PUT /companies/{companyId} {name: ""} => 200 {companyId: "", name: ""}
+AC6: PATCH /companies/{companyId} {employeeId: ""} => 200 
+AC7: GET /companies/employees => 200 {companyId: "", [{employeeId: "", name: "", salary: 50,000}]}
+AC8: PATCH /companies/{companyId}/employees/{employeeId} {name: "", salary?: 50,000} => 200 {employeeId: "", name: "", salary: 50,000}
+AC9: DELETE /companies/{companyId}/employees/{employeeId} => 204
+AC10: DELETE /companies/{companyId} => 204
