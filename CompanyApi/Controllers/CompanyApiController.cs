@@ -36,5 +36,24 @@ namespace CompanyApi.Controllers
 
             return companies[index - 1];
         }
+
+        [HttpGet("companies/pageSize")]
+        public List<Company> GetAllCompanies(int pageIndex, int pageSize)
+        {
+            if (companies.Count == 0)
+            {
+                return null;
+            }
+
+            var startNumber = (pageIndex - 1) * pageSize;
+            if (pageIndex > Math.Ceiling((double)companies.Count / pageSize))
+            {
+                return null;
+            }
+
+            var count = companies.Count > pageSize * pageIndex ? pageSize : companies.Count - startNumber;
+            var companiesTable = companies.ToList().GetRange(startNumber, count);
+            return companiesTable;
+        }
     }
 }
