@@ -17,7 +17,7 @@ namespace CompanyApiTest
             //given
             TestServer server = new TestServer(new WebHostBuilder().UseStartup<Startup>());
             HttpClient client = server.CreateClient();
-            ExistingCompany existingCompany = new ExistingCompany("SSS");
+            Company existingCompany = new Company("SSS");
             string request = JsonConvert.SerializeObject(existingCompany);
             StringContent requestBody = new StringContent(request, Encoding.UTF8, "application/json");
 
@@ -28,7 +28,7 @@ namespace CompanyApiTest
             response.EnsureSuccessStatusCode();
             var responseString = await response.Content.ReadAsStringAsync();
             Company actrualcCompany = JsonConvert.DeserializeObject<Company>(responseString);
-            Assert.Equal(existingCompany.Name, actrualcCompany.Name);
+            Assert.Equal(existingCompany, actrualcCompany);
         }
     }
 }

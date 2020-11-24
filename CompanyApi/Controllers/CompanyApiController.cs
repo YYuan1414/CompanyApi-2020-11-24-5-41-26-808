@@ -13,9 +13,8 @@ namespace CompanyApi.Controllers
     {
         private static IList<Company> companies = new List<Company>();
         [HttpPost("companies")]
-        public Company AddCompany(ExistingCompany existingCompany)
+        public Company AddCompany(Company company)
         {
-            Company company = new Company(existingCompany.Name);
             if (companies.Any(it => it.Name == company.Name))
             {
                 BadRequest();
